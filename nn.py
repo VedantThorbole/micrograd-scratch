@@ -28,15 +28,3 @@ class MLP:
         for layer in self.layers:
             x = layer(x)
         return x
-              
-model = MLP(3, [4,4,1])
-
-x = [
-    Value(2.0),
-    Value(3.0),
-    Value(-1.0)
-]
-
-out = model(x)
-
-print(out)              
