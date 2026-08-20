@@ -24,12 +24,59 @@ The engine contains a `Value` class that supports:
 * Reverse multiplication
 * Hyperbolic tangent (`tanh`)
 
+## Neural Network Module
+
+Built a small neural network module on top of the automatic differentiation engine.
+
+Implemented:
+
+- Neuron
+- Layer
+- Multi-Layer Perceptron (MLP)
+- Forward propagation
+
+Architecture:
+
+```text
+Input
+  ↓
+Neuron
+  ↓
+Layer
+  ↓
+MLP
+  ↓
+Output
+```
+
+
+Example:
+
+```python
+model = MLP(3, [4,4,1])
+
+x = [
+    Value(2.0),
+    Value(3.0),
+    Value(-1.0)
+]
+
+output = model(x)
+```
+Example output:
+
+```text
+Output: [Value(-0.29469297479146517)]
+```
+
 ## Project Structure
 
 ```text
 micrograd-scratch/
 │
 ├── engine.py
+├── nn.py
+├── demo.py
 ├── README.md
 ├── .gitignore
 │
@@ -96,6 +143,19 @@ Chain Rule
 Backpropagation
     ↓
 Gradients
+
+
+Neural Network Abstractions
+
+Value
+  ↓
+Neuron
+  ↓
+Layer
+  ↓
+MLP
+  ↓
+Training
 ```
 
 ## Reference
