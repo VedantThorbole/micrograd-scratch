@@ -1,47 +1,56 @@
 import random
 from engine import Value
 
+
 class Neuron:
     def __init__(self, nin):
-        self.w = [Value(random.uniform(-1,1)) for _ in range (nin)]
+        self.w = [Value(random.uniform(-1, 1)) for _ in range(nin)]
         self.b = Value(0)
-        
-    def __call__(self,x):
-        act = sum((wi*xi for wi,xi in zip(self.w, x)), self.b)
+
+    def __call__(self, x):
+        act = sum((wi * xi for wi, xi in zip(self.w, x)), self.b)
         out = act.tanh()
         return out
-    
+
     def parameters(self):
-        out = self.w + [self.b]
-        return out
+        return self.w + [self.b]
+
 
 class Layer:
     def __init__(self, nin, nout):
         self.neurons = [Neuron(nin) for _ in range(nout)]
-        
+
     def __call__(self, x):
-        out = [ neuron(x) for neuron in self.neurons]
-        return out
-    
+        return [neuron(x) for neuron in self.neurons]
+
     def parameters(self):
-        out = []
+        params = []
+
         for neuron in self.neurons:
-            out = out + neuron.parameters()    
-        return out
-        
+            params.extend(neuron.parameters())
+
+        return params
+
+
 class MLP:
     def __init__(self, nin, layers):
         sizes = [nin] + layers
-        self.layers = [Layer(sizes[i] , sizes[i + 1]) for i in range(len(sizes) - 1)]
-        
+
+        self.layers = [
+            Layer(sizes[i], sizes[i + 1])
+            for i in range(len(layers))
+        ]
+
     def __call__(self, x):
         for layer in self.layers:
             x = layer(x)
+
         return x
-    
+
     def parameters(self):
-        out = []
+        params = []
+
         for layer in self.layers:
-            out = out + layer.parameters()       
-        return out
-    
+            params.extend(layer.parameters())
+
+        return params

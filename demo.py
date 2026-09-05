@@ -1,17 +1,28 @@
 from engine import Value
 from nn import MLP
+from train import training
 
-# Create a neural network
+
 model = MLP(3, [4, 4, 1])
 
-# Sample input
-x = [
-    Value(2.0),
-    Value(3.0),
-    Value(-1.0)
+
+print("Parameters:", len(model.parameters()))
+
+
+training(model, 0.01, 100)
+
+
+
+print("\nPredictions:")
+
+
+xs = [
+    [2.0, 3.0, -1.0],
+    [3.0, -1.0, 0.5],
+    [0.5, 1.0, 1.0],
+    [1.0, 1.0, -1.0]
 ]
 
-# Forward pass
-out = model(x)
 
-print("Output:", out)
+for x in xs:
+    print(model(x))
