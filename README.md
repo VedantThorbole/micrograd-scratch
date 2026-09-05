@@ -4,7 +4,7 @@ A small automatic differentiation engine and neural network framework built comp
 
 This project is my own implementation inspired by Andrej Karpathy's **micrograd** and the **Neural Networks: Zero to Hero** lecture series.
 
-The goal of this project is to understand what happens internally inside frameworks like PyTorch by implementing:
+The purpose of this project is to understand what happens internally inside frameworks like PyTorch by implementing the core concepts manually.
 
 ```
 Operations
@@ -24,6 +24,22 @@ Neural Network Training
 
 ---
 
+# Why This Project?
+
+Deep learning frameworks hide many important concepts behind high-level APIs.
+
+This project rebuilds those concepts from scratch to understand:
+
+- How computational graphs work
+- How gradients are calculated
+- How backpropagation works
+- How neural networks update parameters
+- How optimization allows models to learn
+
+The goal is not to replace production frameworks, but to understand the mechanics behind them.
+
+---
+
 # Features Implemented
 
 ## Automatic Differentiation Engine
@@ -37,7 +53,7 @@ A custom `Value` class implementing:
 - Gradient accumulation
 - Operator overloading
 
-Supported mathematical operations:
+Supported operations:
 
 - Addition
 - Subtraction
@@ -53,7 +69,7 @@ Supported mathematical operations:
 
 # Neural Network Module
 
-Built a simple neural network library on top of the autograd engine.
+Built a simple neural network library on top of the automatic differentiation engine.
 
 Implemented:
 
@@ -62,28 +78,12 @@ Implemented:
 - Multi-Layer Perceptron (MLP)
 - Forward propagation
 - Parameter collection
-
-Architecture:
-
-```
-Input
-  |
-  ↓
-Neuron
-  |
-  ↓
-Layer
-  |
-  ↓
-MLP
-  |
-  ↓
-Prediction
-```
+- Loss calculation
+- Gradient-based training
 
 ---
 
-# Model Architecture
+# Neural Network Architecture
 
 Example:
 
@@ -91,7 +91,7 @@ Example:
 model = MLP(3, [4,4,1])
 ```
 
-Network:
+Architecture:
 
 ```
 Input Layer
@@ -111,12 +111,16 @@ Hidden Layer
 
 Output Layer
 (1 neuron)
+
+        ↓
+
+Prediction
 ```
 
-Total trainable parameters:
+The network contains:
 
 ```
-41 parameters
+Total trainable parameters: 41
 ```
 
 ---
@@ -125,7 +129,7 @@ Total trainable parameters:
 
 The model is trained using gradient descent.
 
-Training flow:
+Training process:
 
 ```
 Input Data
@@ -205,7 +209,7 @@ Example output:
 50 0.0061
 ```
 
-The decreasing loss shows that the neural network is learning by updating its parameters through gradients.
+The decreasing loss shows that the neural network is learning by updating its parameters using gradients calculated through backpropagation.
 
 ---
 
@@ -228,7 +232,7 @@ micrograd-scratch/
 │   └── Loss function and training loop
 │
 ├── demo.py
-│   └── Model training example
+│   └── Training and inference example
 │
 ├── tests/
 │   ├── __init__.py
@@ -247,7 +251,7 @@ Clone the repository:
 git clone https://github.com/VedantThorbole/micrograd-scratch.git
 ```
 
-Go inside the project:
+Move into the project:
 
 ```bash
 cd micrograd-scratch
@@ -268,7 +272,6 @@ Create a neural network:
 ```python
 from nn import MLP
 
-
 model = MLP(3,[4,4,1])
 ```
 
@@ -282,7 +285,7 @@ output = model([
 ])
 ```
 
-Output:
+Example output:
 
 ```
 [Value(...)]
@@ -328,6 +331,7 @@ Possible future additions:
 - Softmax and classification loss
 - Dataset abstraction
 - Model saving/loading
+- Improved neural network utilities
 
 ---
 
@@ -335,11 +339,14 @@ Possible future additions:
 
 Inspired by:
 
-Andrej Karpathy - micrograd
+**Andrej Karpathy - micrograd**
 
 https://github.com/karpathy/micrograd
 
-Neural Networks: Zero to Hero
+
+**Neural Networks: Zero to Hero**
+
+https://karpathy.ai/zero-to-hero.html
 
 ---
 
@@ -347,15 +354,11 @@ Neural Networks: Zero to Hero
 
 This repository is my own implementation created for learning automatic differentiation, neural networks, and backpropagation.
 
-The project is inspired by educational concepts demonstrated in Andrej Karpathy's work and the original micrograd repository.
+The project is inspired by Andrej Karpathy's educational work, especially:
 
+- micrograd
+- Neural Networks: Zero to Hero
 
-## License / Attribution
-
-This project is inspired by and based on concepts demonstrated in Andrej Karpathy's micrograd project.
-
-If referencing or using code from the original micrograd repository, please follow the original repository's license and attribution requirements.
-
-Original project:
+Original inspiration:
 
 https://github.com/karpathy/micrograd
